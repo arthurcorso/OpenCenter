@@ -1,0 +1,17 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+
+# Cartes générées (recréées à l'exécution)
+output/
+
+# Données brutes sources (volumineuses)
+fac-0.json
