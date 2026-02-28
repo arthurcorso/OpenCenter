@@ -58,7 +58,7 @@ source .venv/bin/activate       # macOS / Linux
 # .venv\Scripts\activate        # Windows
 
 # 3. Installer les dépendances
-pip install pandas folium geopy certifi python-docx
+pip install pandas folium geopy certifi
 ```
 
 ---
@@ -153,7 +153,6 @@ GROUP BY d.country ORDER BY nb_dc DESC;
 | `folium` | Cartes HTML interactives |
 | `geopy` | Géocodage Nominatim |
 | `certifi` | Fix SSL macOS pour geopy |
-| `python-docx` | Génération du document de synthèse |
 | `sqlite3` | Accès base de données (stdlib) |
 | `tkinter` | Interface graphique (stdlib) |
 
