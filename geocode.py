@@ -5,7 +5,7 @@
 # Installation : pip install geopy
 # Usage        : python geocode.py [--dry-run] [--limit N]
 # ============================================================
-# Nominatim ToS : 1 requête/seconde max, User-Agent obligatoire
+# Atention : 1 requete/seconde max, User-Agent et obligatoire
 # ============================================================
 
 import sqlite3
@@ -25,7 +25,7 @@ try:
     import geopy.geocoders
     geopy.geocoders.options.default_ssl_context = _ssl_ctx
 except ImportError as e:
-    print(f"❌  Dépendance manquante : {e}\n   Lance : pip install geopy certifi")
+    print(f"Il manque une dépendance : {e}\n   Lance : pip install geopy certifi")
     sys.exit(1)
 
 # -------------------- CONSTANTES ----------------------------
@@ -51,7 +51,7 @@ def geocoder_adresse(geocoder, adresse: str) -> tuple[float, float] | None:
             if tentative < MAX_RETRIES - 1:
                 time.sleep(2)
         except GeocoderServiceError as e:
-            print(f"    ⚠  Erreur service : {e}")
+            print(f"Erreur service : {e}")
             return None
     return None
 
@@ -91,7 +91,7 @@ def construire_adresse(row) -> list[str]:
 def geocoder_manquants(dry_run=False, limite=None):
     """
     Parcourt tous les datacenters sans coordinates valides,
-    tente de les géocoder via Nominatim, et met à jour la BDD.
+    tente de les geocoder via Nominatim, et met à jour la BDD.
     """
     conn = sqlite3.connect(FICHIER_BDD)
     conn.row_factory = sqlite3.Row
@@ -128,7 +128,7 @@ def geocoder_manquants(dry_run=False, limite=None):
 
         variantes = construire_adresse(row)
         if not variantes:
-            print("           ⛔  Aucune adresse disponible, ignoré.\n")
+            print("           Aucune adresse disponible, ignoré.\n")
             echecs += 1
             continue
 
@@ -136,7 +136,7 @@ def geocoder_manquants(dry_run=False, limite=None):
         for variante in variantes:
             coords = geocoder_adresse(geocoder, variante)
             if coords:
-                print(f"           ✅  {coords[0]}, {coords[1]}  (via: \"{variante}\")")
+                print(f"          ✓ {coords[0]}, {coords[1]}  (via: \"{variante}\")")
                 break
             time.sleep(DELAI)
 
@@ -158,11 +158,11 @@ def geocoder_manquants(dry_run=False, limite=None):
     conn.close()
 
     print(f"\n{'─'*60}")
-    print(f"✅  Géocodés avec succès : {succes}")
-    print(f"❌  Non trouvés          : {echecs}")
-    print(f"📊  Total traités        : {succes + echecs} / {total}")
+    print(f"✓ Géocodés avec succès : {succes}")
+    print(f"X  Non trouvés          : {echecs}")
+    print(f"Total traités        : {succes + echecs} / {total}")
     if not dry_run and succes > 0:
-        print(f"💾  Base de données mise à jour : {FICHIER_BDD}")
+        print(f"Base de données update : {FICHIER_BDD}")
 
 
 # ============================================================

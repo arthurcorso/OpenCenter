@@ -98,7 +98,7 @@ def carte_par_pays(fichier=None):
     conn.row_factory = sqlite3.Row
     c = conn.cursor()
 
-    # Jointure : datacenter ⟕ pays  →  nb dc + coord capitale
+    # Jointure : datacenter x pays  →  nb dc + coord capitale
     c.execute("""
         SELECT p.nom_pays, p.code_pays,
                p.lat_capitale, p.lon_capitale,

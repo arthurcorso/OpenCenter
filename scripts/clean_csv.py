@@ -2,12 +2,10 @@ import pandas as pd
 
 def remove_specific_row_from_csv(file, column_name, *args):
 	'''
-	:param file: file to remove the rows from
-	:param column_name: The column that determines which row will be 
-		   deleted (e.g. if Column == Name and row-*args
-		   contains "Gavri", All rows that contain this word will be deleted)
-	:param args: Strings from the rows according to the conditions with 
-				 the column
+	Enlève les lignes d'un fichier csv qui ont une valeur spécifique dans une colonne donnée.
+	Exemple : remove_specific_row_from_csv("data/datacenter.csv", "region_continent
+", "Europe") enlèvera toutes les lignes où la colonne "region_continent" a la valeur "Europe".
+
 	'''
 	row_to_remove = []
 	for row_name in args:
@@ -19,7 +17,7 @@ def remove_specific_row_from_csv(file, column_name, *args):
 			df = df[eval("df.{}".format(column_name)) == row]
 		df.to_csv(file, index=False)
 	except Exception  as e:
-		raise Exception("Error message....")
+		raise Exception("Oh nannnnn une erreur : {}".format(e))
 		
 
 import os as _os

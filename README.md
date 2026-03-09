@@ -162,4 +162,3 @@ GROUP BY d.country ORDER BY nb_dc DESC;
 
 **PeeringDB** — [https://www.peeringdb.com](https://www.peeringdb.com)  
 API publique, sans authentification : `https://www.peeringdb.com/api/fac?depth=0`  
-Données sous licence [PeeringDB Database License](https://www.peeringdb.com/apidocs/#section/License-and-Acceptable-Use-Policy).

@@ -1,6 +1,6 @@
 # ============================================================
-# ACTIVITÉ 8 : Interface graphique Tkinter – OpenCenter
-# Gestion et visualisation des datacenters européens
+# ACTIVITe 8 : Interface graphique Tkinter – OpenCenter
+# Gestion et visualisation des datacenters europeens
 # ============================================================
 
 import sqlite3
@@ -98,7 +98,7 @@ def get_top_dc(n=20):
 
 
 # ============================================================
-# GÉNÉRATION DE CARTES
+# GeNeRATION DE CARTES
 # ============================================================
 
 def generer_carte_tous(fichier=None):
@@ -127,7 +127,7 @@ def generer_carte_tous(fichier=None):
             location=(r['lat'], r['lon']),
             popup=folium.Popup(
                 f"<b>{r['name']}</b><br>{r['city']} ({r['country']})<br>"
-                f"Réseaux : {r['net_count']} | IX : {r['ix_count']}", max_width=250),
+                f"Reseaux : {r['net_count']} | IX : {r['ix_count']}", max_width=250),
             tooltip=r['name'],
             icon=folium.Icon(color='blue', icon='server', prefix='fa')
         ).add_to(cluster)
@@ -166,7 +166,7 @@ def generer_carte_pays(code_pays, nom_pays, fichier=None):
             location=(r['lat'], r['lon']),
             popup=folium.Popup(
                 f"<b>{r['name']}</b><br>{r['city']}<br>"
-                f"Réseaux : {r['net_count']} | IX : {r['ix_count']}", max_width=250),
+                f"Reseaux : {r['net_count']} | IX : {r['ix_count']}", max_width=250),
             tooltip=r['name'],
             icon=folium.Icon(color='red', icon='server', prefix='fa')
         ).add_to(cluster)
@@ -182,7 +182,7 @@ def generer_carte_pays(code_pays, nom_pays, fichier=None):
 class AppOpenCenter(tk.Tk):
     """Fenêtre principale de l'application OpenCenter."""
 
-    # ---- Palette de couleurs -----------------------------------
+    #Palette de couleurs
     BG        = "#1e1e2e"
     BG_PANEL  = "#2a2a3e"
     FG        = "#cdd6f4"
@@ -194,7 +194,7 @@ class AppOpenCenter(tk.Tk):
 
     def __init__(self):
         super().__init__()
-        self.title("OpenCenter – Datacenters Européens")
+        self.title("OpenCenter – Datacenters Europeens")
         self.geometry("1100x700")
         self.configure(bg=self.BG)
         self.resizable(True, True)
@@ -243,11 +243,11 @@ class AppOpenCenter(tk.Tk):
                   style="Title.TLabel",
                   font=("Segoe UI", 18, "bold")).pack(side="left")
         ttk.Label(header,
-                  text="Visualisation des datacenters européens (PeeringDB)",
+                  text="Visualisation des datacenters europeens (PeeringDB)",
                   foreground=self.BORDER,
                   background=self.BG).pack(side="left", padx=12, pady=6)
 
-        # --- Séparateur ---
+        # --- Separateur ---
         sep = tk.Frame(self, height=1, bg=self.BORDER)
         sep.pack(fill="x", padx=16)
 
@@ -298,14 +298,14 @@ class AppOpenCenter(tk.Tk):
         self.notebook.grid(row=0, column=0, sticky="nsew", rowspan=2)
         right.rowconfigure(0, weight=1)
 
-        # Tab 1 : Datacenters du pays sélectionné
+        # Tab 1 : Datacenters du pays selectionne
         self.tab_pays = ttk.Frame(self.notebook)
         self.notebook.add(self.tab_pays, text="  Datacenters (pays)  ")
         self._build_tree_pays()
 
         # Tab 2 : Top 20 mondial
         self.tab_top = ttk.Frame(self.notebook)
-        self.notebook.add(self.tab_top, text="  Top 20 (réseaux)  ")
+        self.notebook.add(self.tab_top, text="  Top 20 (reseaux)  ")
         self._build_tree_top()
 
         # --- Barre de statut ---
@@ -324,7 +324,7 @@ class AppOpenCenter(tk.Tk):
         for col, header, w in [
             ("name",      "Nom",           300),
             ("city",      "Ville",         130),
-            ("net_count", "Réseaux",        80),
+            ("net_count", "Reseaux",        80),
             ("ix_count",  "IX",             60),
         ]:
             self.tree_pays.heading(col, text=header)
@@ -344,7 +344,7 @@ class AppOpenCenter(tk.Tk):
             ("name",      "Nom",     280),
             ("city",      "Ville",   120),
             ("country",   "Pays",     60),
-            ("net_count", "Réseaux",  80),
+            ("net_count", "Reseaux",  80),
             ("ix_count",  "IX",       60),
         ]:
             self.tree_top.heading(col, text=header)
@@ -356,7 +356,7 @@ class AppOpenCenter(tk.Tk):
         self.tree_top.pack(side="left", fill="both", expand=True)
         sb.pack(side="right", fill="y")
 
-        # Remplissage immédiat
+        # Remplissage immediat
         for r in get_top_dc(20):
             self.tree_top.insert("", "end",
                                  values=(r['name'], r['city'], r['country'],
@@ -367,10 +367,10 @@ class AppOpenCenter(tk.Tk):
         s = get_stats_globales()
         donnees = [
             ("Total datacenters",    s['total'],      self.GREEN),
-            ("Avec coordonnées GPS", s['avec_gps'],   self.ACCENT),
-            ("Moy. réseaux conn.",   s['moy_reseau'], self.YELLOW),
-            ("Max réseaux conn.",    s['max_reseau'], self.RED),
-            ("Moy. pts d'échange",   s['moy_ix'],     self.YELLOW),
+            ("Avec coordonnees GPS", s['avec_gps'],   self.ACCENT),
+            ("Moy. reseaux conn.",   s['moy_reseau'], self.YELLOW),
+            ("Max reseaux conn.",    s['max_reseau'], self.RED),
+            ("Moy. pts d'echange",   s['moy_ix'],     self.YELLOW),
         ]
         for key, val, color in donnees:
             row = ttk.Frame(self.frame_stats, style="Panel.TFrame")
@@ -400,7 +400,7 @@ class AppOpenCenter(tk.Tk):
             self.tree_pays.insert("", "end",
                                   values=(r['name'], r['city'],
                                           r['net_count'], r['ix_count']))
-        self.status_var.set(f"{len(rows)} datacenters chargés pour {code}")
+        self.status_var.set(f"{len(rows)} datacenters charges pour {code}")
 
     # ----------------------------------------------------------
     def _ouvrir_carte(self, fichier):
@@ -413,7 +413,7 @@ class AppOpenCenter(tk.Tk):
         if idx < 0:
             return
         r = self._pays_data[idx]
-        self.status_var.set("Génération de la carte en cours…")
+        self.status_var.set("Generation de la carte en cours…")
         self.update()
         fichier, nb = generer_carte_pays(r['code_pays'], r['nom_pays'])
         if fichier:
@@ -425,21 +425,21 @@ class AppOpenCenter(tk.Tk):
             self.status_var.set("Aucun point GPS disponible.")
 
     def _carte_tous(self):
-        self.status_var.set("Génération carte globale…")
+        self.status_var.set("Generation carte globale…")
         self.update()
         fichier, nb = generer_carte_tous()
         self._ouvrir_carte(fichier)
         self.status_var.set(f"Carte globale : {nb} marqueurs → {fichier}")
 
     def _carte_bulles(self):
-        self.status_var.set("Génération carte bulles par pays…")
+        self.status_var.set("Generation carte bulles par pays…")
         self.update()
         try:
             from jointure import carte_par_pays
             f = os.path.join(OUTPUT_DIR, "carte_bulles_interface.html")
             carte_par_pays(f)
             self._ouvrir_carte(f)
-            self.status_var.set("Carte bulles générée.")
+            self.status_var.set("Carte bulles generee.")
         except Exception as e:
             messagebox.showerror("Erreur", str(e))
 

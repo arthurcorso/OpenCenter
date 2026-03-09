@@ -116,10 +116,10 @@ def importer_csv(fichier_csv: str, fichier_bdd: str, reset: bool = False):
     conn.commit()
     conn.close()
 
-    print(f"\n  ✅  {nb_inseres} lignes insérées dans `datacenter`")
+    print(f"\n{nb_inseres} lignes insérées dans `datacenter`")
     if nb_erreurs:
         print(f"  ⚠   {nb_erreurs} lignes ignorées (erreurs)")
-    print(f"  💾  Base de données : {fichier_bdd}")
+    print(f"Base de données : {fichier_bdd}")
 
 
 # ============================================================

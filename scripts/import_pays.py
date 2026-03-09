@@ -49,7 +49,7 @@ def import_pays(fichier_csv=FICHIER_CSV, fichier_bdd=FICHIER_BDD):
     """, rows)
 
     conn.commit()
-    print(f"{c.rowcount} pays importés dans la table `pays`.")
+    print(f"{c.rowcount} pays importes dans la table `pays`.")
     conn.close()
 
 
